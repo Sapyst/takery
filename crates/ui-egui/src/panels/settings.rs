@@ -245,7 +245,8 @@ fn theme_card(app: &mut FilmcraftApp, ui: &mut Ui, d: &mut SettingsDraft, key: &
     let t = app.tokens;
     let current = choice_text(get(&d.values, key));
     let shown = opts.iter().find(|(v, _)| *v == current).or(opts.first()).map_or("darkest", |(v, _)| v);
-    let highlight = settings::parse_hex(&choice_text(get(&d.values, "appearance.highlightColor")));
+    let highlight = settings::parse_hex(&choice_text(get(&d.values, "appearance.highlightColor")))
+        .filter(|h| Some(*h) != settings::parse_hex(settings::DEFAULT_HIGHLIGHT));
     let contrast = get(&d.values, "appearance.accessibleContrast").as_bool().unwrap_or(false);
     let look = Tokens::for_kind(crate::theme::ThemeKind::from_pref(shown)).with_appearance(highlight, contrast);
     let r = Frame::new()
@@ -750,7 +751,7 @@ fn custom(app: &mut FilmcraftApp, ui: &mut Ui, d: &mut SettingsDraft, name: &str
         "memoryInfo" => {
             let (used, budget) = app.frames.cache_usage();
             note(ui, &t, &tlf!("Decoded frames held for the monitors and thumbnails: {used} of {budget}.", used = mb(used as u64), budget = mb(budget as u64)));
-            note(ui, &t, tl!("FilmCraft keeps the rest of the RAM free for other applications."));
+            note(ui, &t, tl!("Takery keeps the rest of the RAM free for other applications."));
         }
         "mediaCacheInfo" => {
             if d.cache_info.is_null() {

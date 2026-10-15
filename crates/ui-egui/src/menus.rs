@@ -136,14 +136,13 @@ pub const UI_COMMANDS: &[UiCommand] = &[
     uic!("mode.import", "Import", [], None),
     uic!("mode.edit", "Edit", [], None),
     uic!("mode.export", "Export", ["File", "Export"], Some("Cmd+M")),
-    uic!("help.discord", "Join the ArtCraft Discord…", ["Help"], None),
-    uic!("help.website", "ArtCraft Website", ["Help"], None),
-    uic!("help.appPage", "FilmCraft on getartcraft.com", ["Help"], None),
-    uic!("help.github", "FilmCraft on GitHub", ["Help"], None),
+    uic!("captions.auto", "Auto Captions…", ["Sequence", "Captions"], Some("Cmd+Alt+Shift+C")),
+    uic!("help.website", "Arch Quilly on GitHub", ["Help"], None),
+    uic!("help.upstream", "FilmCraft (the engine Takery is based on)", ["Help"], None),
     uic!("help.reportIssue", "Report an Issue…", ["Help"], None),
     uic!("help.revealLogFiles", "Reveal Log Files…", ["Help"], None),
     uic!("help.systemCompatibilityReport", "System Compatibility Report…", ["Help"], None),
-    uic!("app.about", "About FilmCraft", ["Help"], None),
+    uic!("app.about", "About Takery", ["Help"], None),
     uic!("app.keyboardShortcuts", "Keyboard Shortcuts…", ["Edit"], Some("Cmd+Alt+K")),
     uic!("app.settings.general", "General…", ["Edit", "Preferences"], Some("Cmd+,")),
     uic!("app.settings.appearance", "Appearance…", ["Edit", "Preferences"], None),
@@ -429,6 +428,11 @@ pub fn invoke(app: &mut FilmcraftApp, ctx: &egui::Context, id: &str, mut params:
             app.ui.mode = Mode::Export;
             return Ok(Value::Null);
         }
+        // Takery: Sequence ▸ Captions ▸ Auto Captions… (`run: true` skips the dialog)
+        crate::auto_captions::COMMAND if params.get("run").and_then(Value::as_bool) == Some(true) => {
+            return crate::auto_captions::start(app, params);
+        }
+        crate::auto_captions::COMMAND => return crate::auto_captions::open(app),
         "app.about" => {
             app.dialog = Some(crate::Dialog::About);
             return Ok(Value::Null);
@@ -678,7 +682,7 @@ pub const MENUS: [&str; 9] = ["File", "Edit", "Clip", "Sequence", "Markers", "Gr
 /// Labels only the native macOS app menu shows, with no command in the menu tree behind them: the
 /// Settings submenu and the predefined Hide, Hide Others and Quit items. They are translated through
 /// the catalogs like menu labels (`apps/filmcraft/src/native_menu.rs`).
-pub const NATIVE_APP_MENU: [&str; 4] = ["Settings", "Hide FilmCraft", "Hide Others", "Quit FilmCraft"];
+pub const NATIVE_APP_MENU: [&str; 4] = ["Settings", "Hide Takery", "Hide Others", "Quit Takery"];
 
 pub fn menu_items(app: &FilmcraftApp) -> Vec<MenuItem> {
     let mut v = menu_items_for(&app.session);

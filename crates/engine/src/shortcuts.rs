@@ -56,7 +56,7 @@ pub const PANELS: &[&str] = &[
     "Lumetri Color",
 ];
 
-pub const DEFAULT_PRESET: &str = "FilmCraft Default";
+pub const DEFAULT_PRESET: &str = "Takery Default";
 pub const PREMIERE_PRESET: &str = "Premiere Pro Compatible";
 pub const FCP_PRESET: &str = "Final Cut Pro Compatible";
 pub const AVID_PRESET: &str = "Avid Media Composer Compatible";
@@ -1075,7 +1075,7 @@ fn read_file(path: &Path) -> std::result::Result<PresetFile, String> {
     let bytes = std::fs::read(path).map_err(|e| format!("{}: {e}", path.display()))?;
     let f: PresetFile = serde_json::from_slice(&bytes).map_err(|e| format!("{}: {e}", path.display()))?;
     if f.format != FILE_FORMAT {
-        return Err(format!("{}: not a FilmCraft keyboard shortcuts file", path.display()));
+        return Err(format!("{}: not a Takery keyboard shortcuts file", path.display()));
     }
     Ok(f)
 }

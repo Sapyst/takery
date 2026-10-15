@@ -150,7 +150,12 @@ pub struct Tokens {
 }
 
 impl Tokens {
+    /// Takery: FilmCraft's tokens with the Aero look on top (`crate::aero`).
     pub fn for_kind(kind: ThemeKind) -> Self {
+        crate::aero::apply(Self::base_for_kind(kind))
+    }
+
+    fn base_for_kind(kind: ThemeKind) -> Self {
         // Measured from Premiere 26 "Darkest" (plan/premiere/02-ui-ux.md §1).
         let dark = Tokens {
             kind,

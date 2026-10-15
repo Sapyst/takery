@@ -22,6 +22,7 @@ pub mod models;
 pub mod vad;
 #[cfg(feature = "whisper")]
 pub mod whisper;
+pub mod whisper_cpp;
 
 use filmcraft_project::Transcript;
 use filmcraft_time::{TICKS_PER_SECOND, Tick};
@@ -124,6 +125,13 @@ pub fn load(models_dir: &std::path::Path, id: &str) -> Result<std::sync::Arc<dyn
     if !models::installed(models_dir, m) {
         return Err(SpeechError::NotInstalled(id.into()));
     }
+    // Takery: the GPU models run in whisper.cpp, an external process.
+    if let Some(file) = id.starts_with(whisper_cpp::PREFIX).then(|| m.files.first()).flatten() {
+        if whisper_cpp::cli().is_none() {
+            return Err(SpeechError::Unavailable("whisper-cli is not installed (package whisper-cpp)".into()));
+        }
+        return Ok(std::sync::Arc::new(whisper_cpp::WhisperCpp::new(models::model_dir(models_dir, m).join(file.name), m.id)));
+    }
     #[cfg(feature = "whisper")]
     {
         Ok(std::sync::Arc::new(whisper::Whisper::load(&models::model_dir(models_dir, m), m.id)?))
@@ -135,8 +143,8 @@ pub fn load(models_dir: &std::path::Path, id: &str) -> Result<std::sync::Arc<dyn
 }
 
 /// Whether this build can run speech models.
-pub const fn available() -> bool {
-    cfg!(feature = "whisper")
+pub fn available() -> bool {
+    cfg!(feature = "whisper") || whisper_cpp::cli().is_some()
 }
 
 /// Mix a multi-channel buffer down to mono.

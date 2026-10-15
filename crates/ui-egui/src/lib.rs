@@ -29,6 +29,8 @@ macro_rules! tlf {
     };
 }
 
+pub mod aero;
+pub mod auto_captions;
 pub mod automation;
 pub mod brand;
 pub mod calc;
@@ -268,7 +270,7 @@ pub(crate) const EXPORT_SAVE_DIALOGS: [(&str, &str, &str); 7] = [
     ("file.exportFcpxml", "FCPXML", "fcpxml"),
     ("file.exportOtio", "OpenTimelineIO", "otio"),
     ("file.exportAle", "Avid Log Exchange", "ale"),
-    ("file.exportSelectionProject", "FilmCraft Project", "fcproj"),
+    ("file.exportSelectionProject", "Takery Project", "fcproj"),
 ];
 
 pub struct FilmcraftApp {
@@ -642,7 +644,9 @@ impl FilmcraftApp {
     /// Show theme `k` with the Settings ▸ Appearance highlight colour and contrast.
     pub fn set_theme(&mut self, ctx: &egui::Context, k: ThemeKind) {
         let a = &self.session.prefs.appearance;
-        let highlight = filmcraft_engine::settings::parse_hex(&a.highlight_color);
+        // Takery: the default highlight follows the desktop's accent (crate::aero)
+        let highlight = filmcraft_engine::settings::parse_hex(&a.highlight_color)
+            .filter(|h| Some(*h) != filmcraft_engine::settings::parse_hex(filmcraft_engine::settings::DEFAULT_HIGHLIGHT));
         self.tokens = Tokens::for_kind(k).with_appearance(highlight, a.accessible_contrast);
         theme::apply_visuals(ctx, &self.tokens);
         self.apply_tooltips(ctx);
@@ -1928,13 +1932,13 @@ impl FilmcraftApp {
 }
 
 impl FilmcraftApp {
-    /// The "FilmCraft hit an error" window after a caught UI panic. Automation ids:
+    /// The "Takery hit an error" window after a caught UI panic. Automation ids:
     /// `error.dismiss`, `error.save`.
     fn error_window(&mut self, ctx: &egui::Context) {
         let Some(msg) = self.ui_error.clone() else { return };
         let mut close = false;
-        egui::Window::new(tl!("FilmCraft hit an error"))
-            .id(egui::Id::new("FilmCraft hit an error"))
+        egui::Window::new(tl!("Takery hit an error"))
+            .id(egui::Id::new("Takery hit an error"))
             .collapsible(false)
             .resizable(false)
             .pivot(egui::Align2::CENTER_CENTER)

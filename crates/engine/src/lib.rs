@@ -53,6 +53,9 @@ pub mod shortcuts;
 pub mod source_monitor;
 pub mod sync;
 pub mod transcript;
+pub mod auto_captions;
+/// Takery: the speech crate, for the Auto Captions dialog.
+pub use filmcraft_speech as speech;
 pub mod trim;
 pub mod voiceover;
 

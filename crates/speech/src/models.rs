@@ -177,6 +177,57 @@ static CATALOGUE: &[ModelInfo] = &[
             ),
         ],
     },
+    // Takery: the whisper.cpp (ggml) conversions, run on the GPU by `crate::whisper_cpp`.
+    ModelInfo {
+        id: "gpu-whisper-turbo",
+        name: "Whisper large-v3 turbo, GPU (multilingual)",
+        multilingual: true,
+        description: "809 M parameters, 5-bit. The most accurate here; on the GPU (Vulkan, whisper.cpp) a minute of speech takes seconds. Best for Portuguese and auto captions.",
+        license: "MIT (OpenAI Whisper weights; whisper.cpp ggml conversion, MIT)",
+        license_url: LICENSE_URL,
+        author: AUTHOR,
+        source: "https://huggingface.co/ggerganov/whisper.cpp",
+        files: &[ModelFile {
+                name: "ggml-large-v3-turbo-q5_0.bin",
+                url: "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-large-v3-turbo-q5_0.bin",
+                sha256: "394221709cd5ad1f40c46e6031ca61bce88931e6e088c188294c6d5a55ffa7e2",
+                size: 574041195,
+            }],
+    },
+    // Takery: the whisper.cpp (ggml) conversions, run on the GPU by `crate::whisper_cpp`.
+    ModelInfo {
+        id: "gpu-whisper-small",
+        name: "Whisper small, GPU (multilingual)",
+        multilingual: true,
+        description: "244 M parameters on the GPU (Vulkan, whisper.cpp): fast, a little less accurate than turbo.",
+        license: "MIT (OpenAI Whisper weights; whisper.cpp ggml conversion, MIT)",
+        license_url: LICENSE_URL,
+        author: AUTHOR,
+        source: "https://huggingface.co/ggerganov/whisper.cpp",
+        files: &[ModelFile {
+                name: "ggml-small.bin",
+                url: "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-small.bin",
+                sha256: "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b",
+                size: 487601967,
+            }],
+    },
+    // Takery: the whisper.cpp (ggml) conversions, run on the GPU by `crate::whisper_cpp`.
+    ModelInfo {
+        id: "gpu-whisper-base",
+        name: "Whisper base, GPU (multilingual)",
+        multilingual: true,
+        description: "74 M parameters on the GPU (Vulkan, whisper.cpp): the quickest, for drafts.",
+        license: "MIT (OpenAI Whisper weights; whisper.cpp ggml conversion, MIT)",
+        license_url: LICENSE_URL,
+        author: AUTHOR,
+        source: "https://huggingface.co/ggerganov/whisper.cpp",
+        files: &[ModelFile {
+                name: "ggml-base.bin",
+                url: "https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base.bin",
+                sha256: "60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe",
+                size: 147951465,
+            }],
+    },
 ];
 
 /// The default model.

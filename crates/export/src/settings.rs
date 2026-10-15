@@ -68,10 +68,10 @@ impl H264Profile {
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum HardwareEncoding {
-    #[default]
     Off,
     /// Use the hardware encoder when the system has one and it takes the settings; otherwise the
-    /// software encoder.
+    /// software encoder. Takery: the default (NVENC on NVIDIA; the software encoder elsewhere).
+    #[default]
     Auto,
 }
 
@@ -86,8 +86,9 @@ pub enum HardwareEncoding {
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GpuRendering {
-    Auto,
+    /// Takery: the default, the GPU compositor with the CPU as fallback.
     #[default]
+    Auto,
     Off,
 }
 
@@ -477,7 +478,7 @@ impl ExportMetadata {
                 .filter(|(_, s)| !s.trim().is_empty())
                 .map(|(k, s)| (k.to_string(), s.trim().to_string()))
                 .collect();
-        v.push(("©too".into(), format!("FilmCraft {}", env!("CARGO_PKG_VERSION"))));
+        v.push(("©too".into(), format!("Takery {}", env!("CARGO_PKG_VERSION"))));
         v
     }
 }

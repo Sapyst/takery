@@ -500,12 +500,12 @@ pub fn default_data_dir() -> Option<PathBuf> {
         return Some(d);
     }
     if cfg!(target_os = "macos") {
-        return env("HOME").map(|h| h.join("Library/Application Support/FilmCraft"));
+        return env("HOME").map(|h| h.join("Library/Application Support/Takery"));
     }
     if cfg!(windows) {
-        return env("APPDATA").map(|h| h.join("FilmCraft"));
+        return env("APPDATA").map(|h| h.join("Takery"));
     }
-    env("XDG_DATA_HOME").map(|d| d.join("filmcraft")).or_else(|| env("HOME").map(|h| h.join(".local/share/filmcraft")))
+    env("XDG_DATA_HOME").map(|d| d.join("arch-quilly/takery")).or_else(|| env("HOME").map(|h| h.join(".local/share/arch-quilly/takery")))
 }
 
 pub fn unix_now() -> i64 {

@@ -4,25 +4,23 @@
 //! app has a page on the ArtCraft website and a public GitHub repository.
 
 /// The app's short name, used in the website and repository URLs.
-pub const APP: &str = "filmcraft";
+pub const APP: &str = "takery";
 
-/// The ArtCraft community Discord.
-pub const DISCORD: &str = "https://discord.gg/artcraft";
-/// The ArtCraft website.
-pub const WEBSITE: &str = "https://getartcraft.com";
-/// FilmCraft's page on the ArtCraft website.
-pub const APP_PAGE: &str = "https://getartcraft.com/apps/filmcraft";
-/// FilmCraft's source repository.
-pub const GITHUB: &str = "https://github.com/storytold/filmcraft";
-/// New issue on FilmCraft's repository.
-pub const ISSUES: &str = "https://github.com/storytold/filmcraft/issues";
+// Takery: the Arch Quilly suite's links; FilmCraft (the engine) is credited in plain text and the
+// ArtCraft marks are not used (docs/brand/).
+/// The upstream project Takery is based on.
+pub const UPSTREAM: &str = "https://github.com/storytold/filmcraft";
+/// Kept for the header button: the suite's page.
+pub const DISCORD: &str = "https://github.com/Sapyst/quilly";
+pub const WEBSITE: &str = "https://github.com/Sapyst/quilly";
+pub const APP_PAGE: &str = "https://github.com/Sapyst/quilly";
+pub const GITHUB: &str = "https://github.com/Sapyst/quilly";
+pub const ISSUES: &str = "https://github.com/Sapyst/quilly/issues";
 
 /// (command id, label, url) for every link, in menu order.
-pub const ALL: [(&str, &str, &str); 5] = [
-    ("help.discord", "Join the ArtCraft Discord…", DISCORD),
-    ("help.website", "ArtCraft Website", WEBSITE),
-    ("help.appPage", "FilmCraft on getartcraft.com", APP_PAGE),
-    ("help.github", "FilmCraft on GitHub", GITHUB),
+pub const ALL: [(&str, &str, &str); 3] = [
+    ("help.website", "Arch Quilly on GitHub", WEBSITE),
+    ("help.upstream", "FilmCraft (the engine Takery is based on)", UPSTREAM),
     ("help.reportIssue", "Report an Issue…", ISSUES),
 ];
 
@@ -49,7 +47,7 @@ pub fn menu_hint(command: &str) -> Option<String> {
         match command {
             "help.revealLogFiles" => tl!("Saves this session's log and shows it in your file manager."),
             "help.systemCompatibilityReport" => tl!("Shows a report on this computer."),
-            "app.about" => tl!("Shows the version, community links and credits in a FilmCraft window."),
+            "app.about" => tl!("Shows the version, community links and credits in a Takery window."),
             _ => return None,
         }
         .to_string(),
