@@ -63,7 +63,7 @@ reproduce an image (for example, point lists traced from someone else's icon).
      without reference to Adobe's artwork.
 2. **Every asset must be open**: open-source licensed (MIT, Apache-2.0, BSD, ISC, zlib, SIL OFL…),
    public domain / CC0, or Creative Commons (CC BY or CC BY-SA; no NC/ND licences), **or** created by a
-   contributor who owns it and licenses it to the project under the project licence (MIT OR Apache-2.0).
+   contributor who owns it and licenses it to the project under the project licence (GPL-3.0-or-later).
    If the licence is unknown or unclear, the asset does not go in.
 3. **Every asset needs an attribution sidecar.** Next to each asset file `X`, add `X.attribution` with:
    ```text

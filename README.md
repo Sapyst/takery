@@ -65,7 +65,9 @@ were removed from this branch and the app shows the suite's icon instead. FilmCr
 
 ## License
 
-MIT OR Apache-2.0, as FilmCraft (`LICENSE-MIT`, `LICENSE-APACHE`, `NOTICE`, `ATTRIBUTION.md`).
+Takery as a whole, and our changes, are under [GPL-3.0-or-later](LICENSE). The FilmCraft code it started from
+is MIT OR Apache-2.0 by the ArtCraft team; those licenses, the `NOTICE` and `ATTRIBUTION.md` are kept
+(`LICENSE-MIT`, `LICENSE-APACHE`). Releases before this change were MIT OR Apache-2.0 and stay so.
 
 The clips in the screenshots are made from public-domain (CC0) photos from Wikimedia Commons,
 [Lake Mountain Landscape](https://commons.wikimedia.org/wiki/File:Lake_Mountain_Landscape.jpg) and
